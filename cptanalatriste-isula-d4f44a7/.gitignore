@@ -1,0 +1,47 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must ends with two \r.
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+/target/
+.idea/compiler.xml
+.idea/misc.xml
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/modules.xml
+*.iml
+.idea/libraries/Maven__junit_junit_4_4.xml
+.idea/libraries/Maven__org_apache_commons_commons_lang3_3_0.xml
+/.idea/
