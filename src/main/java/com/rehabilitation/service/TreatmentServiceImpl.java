@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -53,11 +52,11 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     public void updateTreatment(int treatmentId, Long workerId, int machineId, int locationId) {
-        Treatment treatment = treatmentRepository.findById(treatmentId).get();
+        Treatment treatment = treatmentRepository.getTreatmentById(treatmentId);
         LOGGER.info(treatment.toString());
-        treatment.setLocation(locationRepository.findById(locationId).orElseThrow(Error::new));
-        treatment.setMachine(machineRepository.findById(machineId).orElseThrow(Error::new));
-        treatment.setUser(userRepository.findById(workerId).orElseThrow(Error::new));
+        treatment.setLocation(locationRepository.findById(locationId).get());
+        treatment.setMachine(machineRepository.findById(machineId).get());
+        treatment.setUser(userRepository.findById(workerId).get());
         treatmentRepository.save(treatment);
     }
 }

@@ -31,7 +31,14 @@ public class BreakdownServiceImpl implements BreakdownService {
         return StreamSupport.stream(breakdownRepository.findAll().spliterator(), false)
                 .map(breakdown -> new BreakdownResponse(breakdown.getBreakdownId(), breakdown.getDate_from(), breakdown.getDate_to(), breakdown.getMachine().getMachine_id()))
                 .filter(breakdownResponse -> breakdownResponse.getMachine() == machineId)
-                .filter(breakdownResponse -> ((breakdownResponse.getDate_from().before(date) || breakdownResponse.getDate_from().equals(date)) && ( breakdownResponse.getDate_to().equals(date) || breakdownResponse.getDate_to() == null)))
+                .filter(breakdownResponse -> {
+                    if ((!breakdownResponse.getDate_from().before(date) && !breakdownResponse.getDate_from().equals(date)))
+                        return false;
+                    else if((breakdownResponse.getDate_to().filter(date1 -> date1.after(date) || date1.equals(date)).isPresent())
+                        || !breakdownResponse.getDate_to().isPresent())
+                        return true;
+                    else return false;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -39,7 +46,14 @@ public class BreakdownServiceImpl implements BreakdownService {
     public List<BreakdownResponse> getActiveBreakdowns(Date date) {
         return StreamSupport.stream(breakdownRepository.findAll().spliterator(), false)
                 .map(breakdown -> new BreakdownResponse(breakdown.getBreakdownId(), breakdown.getDate_from(), breakdown.getDate_to(), breakdown.getMachine().getMachine_id()))
-                .filter(breakdownResponse -> ((breakdownResponse.getDate_from().before(date) || breakdownResponse.getDate_from().equals(date)) && ( breakdownResponse.getDate_to().equals(date) || breakdownResponse.getDate_to() == null)))
+                .filter(breakdownResponse -> {
+                    if ((!breakdownResponse.getDate_from().before(date) && !breakdownResponse.getDate_from().equals(date)))
+                        return false;
+                    else if((breakdownResponse.getDate_to().filter(date1 -> date1.after(date) || date1.equals(date)).isPresent())
+                            || !breakdownResponse.getDate_to().isPresent())
+                        return true;
+                    else return false;
+                })
                 .collect(Collectors.toList());
     }
 }

@@ -24,14 +24,14 @@ public class TreatmentScheduleServiceImpl implements TreatmentScheduleService {
     @Override
     public List<TreatmentScheduleResponse> getAll() {
         return StreamSupport.stream(treatmentScheduleRepository.findAll().spliterator(), false)
-                .map(treatmentSchedule -> new TreatmentScheduleResponse(treatmentSchedule.getTreatment_schedule_id(), treatmentSchedule.getDate(), treatmentSchedule.getTime_from(), treatmentSchedule.getTime_to(), treatmentSchedule.getTreatment().getTreatment_id()))
+                .map(treatmentSchedule -> new TreatmentScheduleResponse(treatmentSchedule.getTreatment_schedule_id(), treatmentSchedule.getTreatment().getTreatment_id()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<TreatmentScheduleResponse> getTreatment(int treatmentId) {
         return StreamSupport.stream(treatmentScheduleRepository.findAll().spliterator(), false)
-                .map(treatmentSchedule -> new TreatmentScheduleResponse(treatmentSchedule.getTreatment_schedule_id(), treatmentSchedule.getDate(), treatmentSchedule.getTime_from(), treatmentSchedule.getTime_to(), treatmentSchedule.getTreatment().getTreatment_id()))
+                .map(treatmentSchedule -> new TreatmentScheduleResponse(treatmentSchedule.getTreatment_schedule_id(), treatmentSchedule.getTreatment().getTreatment_id()))
                 .filter(treatmentScheduleResponse -> treatmentScheduleResponse.getTreatment() == treatmentId)
                 .collect(Collectors.toList());
     }
