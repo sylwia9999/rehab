@@ -14,28 +14,30 @@ public class RehabilitationPlan {
     @NotNull
     private int planId;
     private Date creationDate;
+    private Date startDate;
     @ManyToOne(optional = false)
     @JoinColumn(name = "patientId")
     private Patient patient;
     @OneToMany(mappedBy = "rehabilitationPlan", cascade = CascadeType.ALL)
-    private List<RehabilitationPlanLine> lines = new ArrayList<>();
+    private List<Treatment> treatments = new ArrayList<>();
 
     public RehabilitationPlan() {
     }
 
-    public RehabilitationPlan(int planId, Date creationDate, Patient patient, List<RehabilitationPlanLine> lines) {
+    public RehabilitationPlan(int planId, Date creationDate, Date startDate, Patient patient, List<Treatment> treatments) {
         this.planId = planId;
         this.creationDate = creationDate;
+        this.startDate = startDate;
         this.patient = patient;
-        this.lines = lines;
+        this.treatments = treatments;
     }
 
-    public List<RehabilitationPlanLine> getLines() {
-        return lines;
+    public List<Treatment> getLines() {
+        return treatments;
     }
 
-    public void setLines(List<RehabilitationPlanLine> lines) {
-        this.lines = lines;
+    public void setLines(List<Treatment> treatments) {
+        this.treatments = treatments;
     }
 
     public int getPlan_id() {
@@ -60,5 +62,13 @@ public class RehabilitationPlan {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }

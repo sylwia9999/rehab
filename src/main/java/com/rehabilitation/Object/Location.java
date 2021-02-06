@@ -17,21 +17,21 @@ public class Location {
     @OneToMany(mappedBy = "locationPreferences", cascade = CascadeType.ALL)
     private List<Patient> patients = new ArrayList<>();
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-    private List<WorkerSchedule> workerSchedules = new ArrayList<>();
+    private List<User> workers = new ArrayList<>();
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     private List<Machine> machines= new ArrayList<>();
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-    private List<Treatment> treatments = new ArrayList<>();
+    private List<TreatmentSchedule> treatments = new ArrayList<>();
 
     public Location() {
     }
 
-    public Location(int locationId, String city, String address, List<Patient> patients, List<WorkerSchedule> workerSchedules, List<Machine> machines, List<Treatment> treatments) {
+    public Location(int locationId, String city, String address, List<Patient> patients, List<User> workers, List<Machine> machines, List<TreatmentSchedule> treatments) {
         this.locationId = locationId;
         this.city = city;
         this.address = address;
         this.patients = patients;
-        this.workerSchedules = workerSchedules;
+        this.workers = workers;
         this.machines = machines;
         this.treatments = treatments;
     }
@@ -68,12 +68,12 @@ public class Location {
         this.patients = patients;
     }
 
-    public List<WorkerSchedule> getWorkers() {
-        return workerSchedules;
+    public List<User> getWorkers() {
+        return workers;
     }
 
-    public void setWorkers(List<WorkerSchedule> workerSchedules) {
-        this.workerSchedules = workerSchedules;
+    public void setWorkers(List<User> workers) {
+        this.workers = workers;
     }
 
     public List<Machine> getMachines() {
@@ -84,11 +84,11 @@ public class Location {
         this.machines = machines;
     }
 
-    public List<Treatment> getTreatments() {
+    public List<TreatmentSchedule> getTreatments() {
         return treatments;
     }
 
-    public void setTreatments(List<Treatment> treatments) {
+    public void setTreatments(List<TreatmentSchedule> treatments) {
         this.treatments = treatments;
     }
 }

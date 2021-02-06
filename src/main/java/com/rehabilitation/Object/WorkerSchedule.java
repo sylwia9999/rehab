@@ -16,21 +16,17 @@ public class WorkerSchedule {
     private Time timeFrom;
     private Time timeTo;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "locationId")
-    private Location location;
-    @ManyToOne(optional = false)
     @JoinColumn(name = "userId")
     private User worker;
 
     public WorkerSchedule() {
     }
 
-    public WorkerSchedule(int workerScheduleId, Date date, Time timeFrom, Time timeTo, Location location, User worker) {
+    public WorkerSchedule(int workerScheduleId, Date date, Time timeFrom, Time timeTo, User worker) {
         this.workerScheduleId = workerScheduleId;
         this.date = date;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
-        this.location = location;
         this.worker = worker;
     }
 
@@ -64,14 +60,6 @@ public class WorkerSchedule {
 
     public void setTime_to(Time timeTo) {
         this.timeTo = timeTo;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public User getUser() {

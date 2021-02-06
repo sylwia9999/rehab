@@ -31,8 +31,4 @@ public class WorkerScheduleController {
         return new ResponseEntity<>(workerScheduleService.getWorker(workerId), HttpStatus.OK);
     }
 
-    @GetMapping("/rehab/workerSchedules/location")
-    public ResponseEntity<List<WorkerScheduleResponse>> getLocation(@RequestParam int locationId) {
-        return new ResponseEntity<>(workerScheduleService.getLocation(locationId), HttpStatus.OK);
-    }
 }

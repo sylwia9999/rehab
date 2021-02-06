@@ -7,17 +7,15 @@ public class WorkerScheduleRequest {
     private Date date;
     private Time timeFrom;
     private Time timeTo;
-    private int location;
     private Long user;
 
     public WorkerScheduleRequest() {
     }
 
-    public WorkerScheduleRequest(Date date, Time timeFrom, Time timeTo, int location, Long user) {
+    public WorkerScheduleRequest(Date date, Time timeFrom, Time timeTo, Long user) {
         this.date = date;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
-        this.location = location;
         this.user = user;
     }
 
@@ -43,14 +41,6 @@ public class WorkerScheduleRequest {
 
     public void setTime_to(Time timeTo) {
         this.timeTo = timeTo;
-    }
-
-    public int getLocation() {
-        return location;
-    }
-
-    public void setLocation(int location) {
-        this.location = location;
     }
 
     public Long getUser() {

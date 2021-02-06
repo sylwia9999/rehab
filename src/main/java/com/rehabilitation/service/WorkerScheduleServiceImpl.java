@@ -21,23 +21,16 @@ public class WorkerScheduleServiceImpl implements WorkerScheduleService{
     @Override
     public List<WorkerScheduleResponse> getAll() {
         return StreamSupport.stream(workerScheduleRepository.findAll().spliterator(), false)
-                .map(workerSchedule -> new WorkerScheduleResponse(workerSchedule.getWorker_schedule_id(), workerSchedule.getDate(), workerSchedule.getTime_from(), workerSchedule.getTime_to(), workerSchedule.getLocation().getLocationId(), workerSchedule.getUser().getUserId()))
+                .map(workerSchedule -> new WorkerScheduleResponse(workerSchedule.getWorker_schedule_id(), workerSchedule.getDate(), workerSchedule.getTime_from(), workerSchedule.getTime_to(), workerSchedule.getUser().getUserId()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<WorkerScheduleResponse> getWorker(Long workerId) {
         return StreamSupport.stream(workerScheduleRepository.findAll().spliterator(), false)
-                .map(workerSchedule -> new WorkerScheduleResponse(workerSchedule.getWorker_schedule_id(), workerSchedule.getDate(), workerSchedule.getTime_from(), workerSchedule.getTime_to(), workerSchedule.getLocation().getLocationId(), workerSchedule.getUser().getUserId()))
+                .map(workerSchedule -> new WorkerScheduleResponse(workerSchedule.getWorker_schedule_id(), workerSchedule.getDate(), workerSchedule.getTime_from(), workerSchedule.getTime_to(), workerSchedule.getUser().getUserId()))
                 .filter(workerScheduleResponse -> workerScheduleResponse.getUser() == workerId)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<WorkerScheduleResponse> getLocation(int locationId) {
-        return StreamSupport.stream(workerScheduleRepository.findAll().spliterator(), false)
-                .map(workerSchedule -> new WorkerScheduleResponse(workerSchedule.getWorker_schedule_id(), workerSchedule.getDate(), workerSchedule.getTime_from(), workerSchedule.getTime_to(), workerSchedule.getLocation().getLocationId(), workerSchedule.getUser().getUserId()))
-                .filter(workerScheduleResponse -> workerScheduleResponse.getLocation() == locationId)
-                .collect(Collectors.toList());
-    }
 }

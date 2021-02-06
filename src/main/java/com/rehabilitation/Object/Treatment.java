@@ -10,41 +10,33 @@ public class Treatment {
     @GeneratedValue
     @NotNull
     private int treatmentId;
+    @Column(name="[name]")
     private String name;
     private int duration;
+    @Column(name="[order]")
     private int order;
     @OneToOne(mappedBy = "treatment")
     private TreatmentSchedule treatmentSchedule;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "userId")
-    private User worker;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "locationId")
-    private Location location;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "machineId")
-    private Machine machine;
-    @ManyToOne(optional = false)
     @JoinColumn(name = "treatmentTypeId")
     private TreatmentType treatmentType;
+    private int repeat_number;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "lineId")
-    private RehabilitationPlanLine rehabilitationPlanLine;
+    @JoinColumn(name = "planId")
+    private RehabilitationPlan rehabilitationPlan;
 
     public Treatment() {
     }
 
-    public Treatment(int treatmentId, String name, int duration, int order, TreatmentSchedule treatmentSchedule, User worker, Location location, Machine machine, TreatmentType treatmentType, RehabilitationPlanLine rehabilitationPlanLine) {
+    public Treatment(int treatmentId, String name, int duration, int order, TreatmentSchedule treatmentSchedule, int repeat_number, TreatmentType treatmentType, RehabilitationPlan rehabilitationPlan) {
         this.treatmentId = treatmentId;
         this.name = name;
         this.duration = duration;
+        this.repeat_number = repeat_number;
         this.order = order;
         this.treatmentSchedule = treatmentSchedule;
-        this.worker = worker;
-        this.location = location;
-        this.machine = machine;
         this.treatmentType = treatmentType;
-        this.rehabilitationPlanLine = rehabilitationPlanLine;
+        this.rehabilitationPlan = rehabilitationPlan;
     }
 
     public int getTreatment_id() {
@@ -87,30 +79,6 @@ public class Treatment {
         this.treatmentSchedule = treatmentSchedule;
     }
 
-    public User getUser() {
-        return worker;
-    }
-
-    public void setUser(User worker) {
-        this.worker = worker;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public Machine getMachine() {
-        return machine;
-    }
-
-    public void setMachine(Machine machine) {
-        this.machine = machine;
-    }
-
     public TreatmentType getTreatmentType() {
         return treatmentType;
     }
@@ -119,12 +87,20 @@ public class Treatment {
         this.treatmentType = treatmentType;
     }
 
-    public RehabilitationPlanLine getRehabilitationPlanLine() {
-        return rehabilitationPlanLine;
+    public RehabilitationPlan getRehabilitationPlanLine() {
+        return rehabilitationPlan;
     }
 
-    public void setRehabilitationPlanLine(RehabilitationPlanLine rehabilitationPlanLine) {
-        this.rehabilitationPlanLine = rehabilitationPlanLine;
+    public void setRehabilitationPlan(RehabilitationPlan rehabilitationPlan) {
+        this.rehabilitationPlan = rehabilitationPlan;
+    }
+
+    public int getRepeat_number() {
+        return repeat_number;
+    }
+
+    public void setRepeat_number(int repeat_number) {
+        this.repeat_number = repeat_number;
     }
 }
 

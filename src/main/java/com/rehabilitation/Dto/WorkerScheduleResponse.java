@@ -8,18 +8,16 @@ public class WorkerScheduleResponse {
     private Date date;
     private Time timeFrom;
     private Time timeTo;
-    private int location;
     private Long user;
 
     public WorkerScheduleResponse() {
     }
 
-    public WorkerScheduleResponse(int workerScheduleId, Date date, Time timeFrom, Time timeTo, int location, Long user) {
+    public WorkerScheduleResponse(int workerScheduleId, Date date, Time timeFrom, Time timeTo, Long user) {
         this.workerScheduleId = workerScheduleId;
         this.date = date;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
-        this.location = location;
         this.user = user;
     }
 
@@ -53,14 +51,6 @@ public class WorkerScheduleResponse {
 
     public void setTime_to(Time timeTo) {
         this.timeTo = timeTo;
-    }
-
-    public int getLocation() {
-        return location;
-    }
-
-    public void setLocation(int location) {
-        this.location = location;
     }
 
     public Long getUser() {

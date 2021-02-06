@@ -9,4 +9,6 @@ public interface UserService {
     List<UserResponse> getByEmailPassword(String email, String password);
     List<UserResponse> getByEmail(String email);
     void registerUser(UserRequest readerRequest);
+    List<UserResponse> getPermittedWorkers(int treatmentId, int locationId);
+
 }

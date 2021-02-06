@@ -31,15 +31,10 @@ public class TreatmentController {
         return new ResponseEntity<>(treatmentService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/rehab/treatments/line")
-    public ResponseEntity<List<TreatmentResponse>> getLine(@RequestParam int lineId) {
-        return new ResponseEntity<>(treatmentService.getLine(lineId), HttpStatus.OK);
+
+    @GetMapping("/rehab/treatments/patient")
+    public ResponseEntity<List<TreatmentResponse>> getPatient(@RequestParam int patientId) {
+        return new ResponseEntity<>(treatmentService.getPlan(patientId), HttpStatus.OK);
     }
 
-    @PutMapping("/rehab/treatment/update")
-    public ResponseEntity updateTreatment(@RequestParam int treatmentId, @RequestParam Long workerId, @RequestParam int machineId, @RequestParam int locationId){
-        LOGGER.info("{}",treatmentId);
-        treatmentService.updateTreatment(treatmentId, workerId, machineId, locationId);
-        return new ResponseEntity(HttpStatus.OK);
-    }
 }

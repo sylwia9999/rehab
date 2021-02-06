@@ -4,13 +4,15 @@ import java.util.Date;
 
 public class RehabilitationPlanRequest {
     private Date creationDate;
+    private Date startDate;
     private int patient;
 
     public RehabilitationPlanRequest() {
     }
 
-    public RehabilitationPlanRequest(int planId, Date creationDate, int patient) {
+    public RehabilitationPlanRequest(Date creationDate, int patient, Date startDate) {
         this.creationDate = creationDate;
+        this.startDate = startDate;
         this.patient = patient;
     }
 
@@ -28,5 +30,13 @@ public class RehabilitationPlanRequest {
 
     public void setPatient(int patient) {
         this.patient = patient;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }

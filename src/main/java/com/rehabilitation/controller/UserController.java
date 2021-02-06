@@ -19,7 +19,6 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:4200")
 public class UserController {
-
     @Autowired
     private AuthenticationManager manager;
     @Autowired
@@ -67,4 +66,8 @@ public class UserController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
+    @GetMapping(value = "/users/usersForTreatment")
+    public ResponseEntity<List<UserResponse>> getPermittedWorkers(@RequestParam int treatmentId, @RequestParam int locationId) {
+        return new ResponseEntity<>(userService.getPermittedWorkers(treatmentId, locationId), HttpStatus.OK);
+    }
 }

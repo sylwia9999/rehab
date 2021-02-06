@@ -1,22 +1,28 @@
 package com.rehabilitation.Dto;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 public class TreatmentScheduleRequest {
     private Date date;
     private Time timeFrom;
     private Time timeTo;
     private int treatment;
+    private Long user;
+    private int location;
+    private int machine;
 
     public TreatmentScheduleRequest() {
     }
 
-    public TreatmentScheduleRequest(Date date, Time timeFrom, Time timeTo, int treatment) {
+    public TreatmentScheduleRequest(Date date, Time timeFrom, Time timeTo, int treatment, int location, int machine, Long user) {
         this.date = date;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
         this.treatment = treatment;
+        this.user = user;
+        this.machine = machine;
+        this.location = location;
     }
 
     public Date getDate() {
@@ -49,5 +55,29 @@ public class TreatmentScheduleRequest {
 
     public void setTreatment(int treatment) {
         this.treatment = treatment;
+    }
+
+    public Long getUser() {
+        return user;
+    }
+
+    public void setUser(Long user) {
+        this.user = user;
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location) {
+        this.location = location;
+    }
+
+    public int getMachine() {
+        return machine;
+    }
+
+    public void setMachine(int machine) {
+        this.machine = machine;
     }
 }

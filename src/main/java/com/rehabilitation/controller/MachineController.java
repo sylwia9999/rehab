@@ -41,4 +41,9 @@ public class MachineController {
     public ResponseEntity<List<MachineResponse>> getTypeLocation(@RequestParam int machineTypeId, @RequestParam int locationId) {
         return new ResponseEntity<>(machineService.getMachineTypeAndLocation(machineTypeId, locationId), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/machines/machinesForTreatment")
+    public ResponseEntity<List<MachineResponse>> getPermittedMachines(@RequestParam int treatmentId, @RequestParam int locationId) {
+        return new ResponseEntity<>(machineService.getPermittedMachines(treatmentId, locationId), HttpStatus.OK);
+    }
 }

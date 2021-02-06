@@ -4,7 +4,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 public class TreatmentSchedule {
@@ -15,6 +15,15 @@ public class TreatmentSchedule {
     private Date date;
     private Time timeFrom;
     private Time timeTo;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
+    private User worker;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "locationId")
+    private Location location;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "machineId")
+    private Machine machine;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "treatmentId")
     private Treatment treatment;
@@ -22,11 +31,14 @@ public class TreatmentSchedule {
     public TreatmentSchedule() {
     }
 
-    public TreatmentSchedule(int treatmentScheduleId, Date date, Time timeFrom, Time timeTo, Treatment treatment) {
+    public TreatmentSchedule(int treatmentScheduleId, Date date, Time timeFrom, Time timeTo, User worker, Location location, Machine machine, Treatment treatment) {
         this.treatmentScheduleId = treatmentScheduleId;
         this.date = date;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
+        this.worker = worker;
+        this.location = location;
+        this.machine = machine;
         this.treatment = treatment;
     }
 
@@ -68,5 +80,29 @@ public class TreatmentSchedule {
 
     public void setTreatment(Treatment treatment) {
         this.treatment = treatment;
+    }
+
+    public User getWorker() {
+        return worker;
+    }
+
+    public void setWorker(User worker) {
+        this.worker = worker;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
 }

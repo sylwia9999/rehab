@@ -6,6 +6,4 @@ import java.util.List;
 public interface WorkerScheduleService {
     List<WorkerScheduleResponse> getAll();
     List<WorkerScheduleResponse> getWorker(Long workerId);
-    List<WorkerScheduleResponse> getLocation(int locationId);
-
 }
