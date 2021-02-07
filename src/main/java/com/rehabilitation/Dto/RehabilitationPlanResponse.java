@@ -1,6 +1,6 @@
 package com.rehabilitation.Dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class RehabilitationPlanResponse {
     private int planId;

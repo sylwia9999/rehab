@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public class TreatmentScheduleResponse {
     private int treatmentScheduleId;
-    private Optional<Date> date;
-    private Optional<Time> timeFrom;
-    private Optional<Time> timeTo;
+    private Date date;
+    private Time timeFrom;
+    private Time timeTo;
     private Long user;
     private int location;
     private int machine;
@@ -33,28 +33,39 @@ public class TreatmentScheduleResponse {
         this.treatmentScheduleId = treatmentScheduleId;
     }
 
-    public Optional<Date> getDate() {
+    public TreatmentScheduleResponse(int treatmentScheduleId, Date date, Time timeFrom, Time timeTo, Long user, int location, int machine, int treatment) {
+        this.treatmentScheduleId = treatmentScheduleId;
+        this.date = date;
+        this.timeFrom = timeFrom;
+        this.timeTo = timeTo;
+        this.user = user;
+        this.location = location;
+        this.machine = machine;
+        this.treatment = treatment;
+    }
+
+    public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
-        this.date = Optional.ofNullable(date);
+        this.date = date;
     }
 
-    public Optional<Time> getTime_from() {
+    public Time getTimeFrom() {
         return timeFrom;
     }
 
-    public void setTime_from(Time timeFrom) {
-        this.timeFrom = Optional.ofNullable(timeFrom);
+    public void setTimeFrom(Time timeFrom) {
+        this.timeFrom = timeFrom;
     }
 
-    public Optional<Time> getTime_to() {
+    public Time getTimeTo() {
         return timeTo;
     }
 
-    public void setTime_to(Time timeTo) {
-        this.timeTo = Optional.ofNullable(timeTo);
+    public void setTimeTo(Time timeTo) {
+        this.timeTo = timeTo;
     }
 
     public int getTreatment() {

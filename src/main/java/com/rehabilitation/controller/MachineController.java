@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -43,7 +44,7 @@ public class MachineController {
     }
 
     @GetMapping(value = "/machines/machinesForTreatment")
-    public ResponseEntity<List<MachineResponse>> getPermittedMachines(@RequestParam int treatmentId, @RequestParam int locationId) {
-        return new ResponseEntity<>(machineService.getPermittedMachines(treatmentId, locationId), HttpStatus.OK);
+    public ResponseEntity<List<MachineResponse>> getPermittedMachines(@RequestParam int treatmentId, @RequestParam int locationId, @RequestParam Date date) {
+        return new ResponseEntity<>(machineService.getPermittedMachines(treatmentId, locationId, date), HttpStatus.OK);
     }
 }

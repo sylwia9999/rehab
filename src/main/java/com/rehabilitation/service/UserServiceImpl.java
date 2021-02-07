@@ -3,6 +3,7 @@ package com.rehabilitation.service;
 import com.rehabilitation.Dto.PermissionResponse;
 import com.rehabilitation.Dto.UserRequest;
 import com.rehabilitation.Dto.UserResponse;
+import com.rehabilitation.Dto.WorkerScheduleResponse;
 import com.rehabilitation.Object.TreatmentType;
 import com.rehabilitation.Object.User;
 import com.rehabilitation.UsersDetails;
@@ -10,6 +11,8 @@ import com.rehabilitation.repository.RoleRepository;
 import com.rehabilitation.repository.TreatmentRepository;
 import com.rehabilitation.repository.TreatmentTypeRepository;
 import com.rehabilitation.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +25,7 @@ import java.io.Serializable;
 import java.lang.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,21 +34,27 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService, Serializable {
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PermissionServiceImpl permissionService;
+    private final WorkerScheduleServiceImpl workerScheduleService;
     private final TreatmentTypeRepository treatmentTypeRepository;
     private final TreatmentRepository treatmentRepository;
+    private static final Logger LOGGER;
+    static {
+        LOGGER = LoggerFactory.getLogger(TreatmentServiceImpl.class);
+    }
+
 
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PermissionServiceImpl permissionService, TreatmentTypeRepository treatmentTypeRepository, TreatmentRepository treatmentRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PermissionServiceImpl permissionService, WorkerScheduleServiceImpl workerScheduleService, TreatmentTypeRepository treatmentTypeRepository, TreatmentRepository treatmentRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.permissionService = permissionService;
+        this.workerScheduleService = workerScheduleService;
         this.treatmentTypeRepository = treatmentTypeRepository;
         this.treatmentRepository = treatmentRepository;
     }
@@ -80,19 +90,30 @@ public class UserServiceImpl implements UserService, UserDetailsService, Seriali
     }
 
     @Override
-    public List<UserResponse> getPermittedWorkers(int treatmentId, int locationId) {
+    public List<UserResponse> getPermittedWorkers(int treatmentId, int locationId, Date date) {
         TreatmentType treatmentType = treatmentTypeRepository.getTreatmentTypeById(treatmentRepository.getTreatmentById(treatmentId).getTreatmentType().getTreatment_type_id());
         List<PermissionResponse> permissions = permissionService.getAllForTreatment(treatmentType.getTreatment_type_id());
         List<Long> users = new ArrayList<>();
-        System.out.println(permissions.get(0).getWorker());
         for (PermissionResponse permission : permissions) {
             users.add(permission.getWorker());
         }
-        System.out.println(users.get(1));
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false)
+        List<UserResponse> permittedUsers = StreamSupport.stream(userRepository.findAll().spliterator(), false)
                 .map(user -> new UserResponse(user.getUserId(), user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword(), user.getSubscription(), user.getRole().getRole_id(), user.getLocation().getLocationId()))
                 .filter(userResponse -> users.contains(userResponse.getId()))
                 .filter(userResponse -> userResponse.getLocation_id() == locationId)
+                .collect(Collectors.toList());
+
+        List<WorkerScheduleResponse> workerScheduleResponses = new ArrayList<>();
+        for (UserResponse permittedUser : permittedUsers) {
+            workerScheduleResponses.addAll(workerScheduleService.getWorker(permittedUser.getId(), date));
+        }
+
+        List<Long> schedules = new ArrayList<>();
+        for (WorkerScheduleResponse workerScheduleResponse : workerScheduleResponses) {
+            schedules.add(workerScheduleResponse.getUser());
+        }
+        return permittedUsers.stream()
+                .filter(userResponse -> schedules.contains(userResponse.getId()))
                 .collect(Collectors.toList());
     }
 

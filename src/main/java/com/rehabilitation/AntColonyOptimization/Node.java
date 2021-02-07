@@ -5,14 +5,14 @@ import java.sql.Date;
 
 public class Node {
     int machineId;
-    int workerId;
+    Long workerId;
     Date date;
     Time startTime;
 
     public Node() {
     }
 
-    public Node(int machineId, int workerId, Date date, Time startTime) {
+    public Node(int machineId, Long workerId, Date date, Time startTime) {
         this.machineId = machineId;
         this.workerId = workerId;
         this.date = date;
@@ -27,11 +27,11 @@ public class Node {
         this.machineId = machineId;
     }
 
-    public int getWorkerId() {
+    public Long getWorkerId() {
         return workerId;
     }
 
-    public void setWorkerId(int workerId) {
+    public void setWorkerId(Long workerId) {
         this.workerId = workerId;
     }
 

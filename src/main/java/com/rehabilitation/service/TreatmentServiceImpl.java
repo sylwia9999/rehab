@@ -42,20 +42,21 @@ public class TreatmentServiceImpl implements TreatmentService {
     }
 
     @Override
-    public List<TreatmentResponse> getPlan(int patientId) {
-        Date lastDate = Date.valueOf("1999-10-10");
+    public List<TreatmentResponse> getPlan(int patientId, int whichDay) {
         List<RehabilitationPlanResponse> plans = rehabilitationPlanService.getPatient(patientId);
-        LOGGER.info("{}", plans.get(0).getPlan_id());
         RehabilitationPlanResponse thisPlan = plans.get(0);
+        Date lastDate = plans.get(0).getCreation_date();
         for (RehabilitationPlanResponse plan: plans){
             if (plan.getCreation_date().after(lastDate)){
                 thisPlan = plan;
+                lastDate = plan.getCreation_date();
             }
         }
         RehabilitationPlanResponse finalThisPlan = thisPlan;
         return  StreamSupport.stream(treatmentRepository.findAll().spliterator(), false)
                 .map(treatment -> new TreatmentResponse(treatment.getTreatment_id(), treatment.getName(), treatment.getDuration(), treatment.getOrder(), treatment.getTreatmentType().getTreatment_type_id(), treatment.getRehabilitationPlanLine().getPlan_id(), treatment.getRepeat_number()))
                 .filter(treatmentResponse -> treatmentResponse.getRehabilitationPlan() == finalThisPlan.getPlan_id())
+                .filter(treatmentResponse -> treatmentResponse.getRepeat_number() >= whichDay+1)
                 .collect(Collectors.toList());
     }
 

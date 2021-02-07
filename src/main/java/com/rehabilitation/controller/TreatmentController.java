@@ -33,8 +33,8 @@ public class TreatmentController {
 
 
     @GetMapping("/rehab/treatments/patient")
-    public ResponseEntity<List<TreatmentResponse>> getPatient(@RequestParam int patientId) {
-        return new ResponseEntity<>(treatmentService.getPlan(patientId), HttpStatus.OK);
+    public ResponseEntity<List<TreatmentResponse>> getPatient(@RequestParam int patientId, @RequestParam int whichDay) {
+        return new ResponseEntity<>(treatmentService.getPlan(patientId, whichDay), HttpStatus.OK);
     }
 
 }

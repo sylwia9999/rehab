@@ -2,9 +2,6 @@ package com.rehabilitation.controller;
 
 import com.rehabilitation.Dto.TreatmentScheduleResponse;
 import com.rehabilitation.service.TreatmentScheduleService;
-import com.rehabilitation.service.TreatmentServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +15,6 @@ import java.util.List;
 @CrossOrigin("http://localhost:4200")
 public class TreatmentScheduleController {
     private final TreatmentScheduleService treatmentScheduleService;
-    private static final Logger LOGGER;
-
-    static {
-        LOGGER = LoggerFactory.getLogger(TreatmentServiceImpl.class);
-    }
 
     @Autowired
     public TreatmentScheduleController(TreatmentScheduleService treatmentScheduleService) {
@@ -37,6 +29,21 @@ public class TreatmentScheduleController {
     @GetMapping("/rehab/schedule/treatment")
     public ResponseEntity<List<TreatmentScheduleResponse>> getTreatment(@RequestParam int treatmentId) {
         return new ResponseEntity<>(treatmentScheduleService.getTreatment(treatmentId), HttpStatus.OK);
+    }
+
+    @GetMapping("/rehab/schedule/machine")
+    public ResponseEntity<List<TreatmentScheduleResponse>> getMachine(@RequestParam int machineId, @RequestParam Date date) {
+        return new ResponseEntity<>(treatmentScheduleService.getMachine(machineId, date), HttpStatus.OK);
+    }
+
+    @GetMapping("/rehab/schedule/hours/machine")
+    public List<Time> getHours(@RequestParam int machineId, @RequestParam Date date, @RequestParam Time openTime, @RequestParam Time closeTime, @RequestParam int duration) {
+        return treatmentScheduleService.getHours(machineId, date, openTime, closeTime, duration);
+    }
+
+    @GetMapping("/rehab/schedule/hours/worker")
+    public List<Time> getHoursWorker(@RequestParam Long workerId, @RequestParam Date date,@RequestParam int duration) {
+        return treatmentScheduleService.getHoursWorker(workerId, date, duration);
     }
 
 }

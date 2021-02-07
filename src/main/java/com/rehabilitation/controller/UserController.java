@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -66,8 +67,8 @@ public class UserController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
-    @GetMapping(value = "/users/usersForTreatment")
-    public ResponseEntity<List<UserResponse>> getPermittedWorkers(@RequestParam int treatmentId, @RequestParam int locationId) {
-        return new ResponseEntity<>(userService.getPermittedWorkers(treatmentId, locationId), HttpStatus.OK);
+    @GetMapping(value = "/users/treatment")
+    public ResponseEntity<List<UserResponse>> getPermittedWorkers(@RequestParam int treatmentId, @RequestParam int locationId,@RequestParam Date date) {
+        return new ResponseEntity<>(userService.getPermittedWorkers(treatmentId, locationId, date), HttpStatus.OK);
     }
 }
