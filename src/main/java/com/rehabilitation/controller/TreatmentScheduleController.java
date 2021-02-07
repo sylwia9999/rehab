@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -31,9 +31,19 @@ public class TreatmentScheduleController {
         return new ResponseEntity<>(treatmentScheduleService.getTreatment(treatmentId), HttpStatus.OK);
     }
 
-    @PutMapping("/rehab/schedule/update")
-    public ResponseEntity updateSchedule(@RequestParam int treatmentId, @RequestParam Date date, @RequestParam Time timeFrom, @RequestParam Time timeTo){
-        treatmentScheduleService.updateTreatmentSchedule(treatmentId, date, timeFrom, timeTo);
-        return new ResponseEntity(HttpStatus.OK);
+    @GetMapping("/rehab/schedule/machine")
+    public ResponseEntity<List<TreatmentScheduleResponse>> getMachine(@RequestParam int machineId, @RequestParam Date date) {
+        return new ResponseEntity<>(treatmentScheduleService.getMachine(machineId, date), HttpStatus.OK);
     }
+
+    @GetMapping("/rehab/schedule/hours/machine")
+    public List<Time> getHours(@RequestParam int machineId, @RequestParam Date date, @RequestParam Time openTime, @RequestParam Time closeTime, @RequestParam int duration) {
+        return treatmentScheduleService.getHours(machineId, date, openTime, closeTime, duration);
+    }
+
+    @GetMapping("/rehab/schedule/hours/worker")
+    public List<Time> getHoursWorker(@RequestParam Long workerId, @RequestParam Date date,@RequestParam int duration) {
+        return treatmentScheduleService.getHoursWorker(workerId, date, duration);
+    }
+
 }

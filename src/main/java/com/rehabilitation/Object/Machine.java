@@ -22,18 +22,18 @@ public class Machine {
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL)
     private List<Breakdown> breakdowns = new ArrayList<>();
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL)
-    private List<Treatment> treatments = new ArrayList<>();
+    private List<TreatmentSchedule> treatmentSchedules = new ArrayList<>();
 
     public Machine() {
     }
 
-    public Machine(int machineId, String name, Location location, MachineType machineType, List<Breakdown> breakdowns, List<Treatment> treatments) {
+    public Machine(int machineId, String name, Location location, MachineType machineType, List<Breakdown> breakdowns, List<TreatmentSchedule> treatmentSchedules) {
         this.machineId = machineId;
         this.name = name;
         this.location = location;
         this.machineType = machineType;
         this.breakdowns = breakdowns;
-        this.treatments = treatments;
+        this.treatmentSchedules = treatmentSchedules;
     }
 
     public int getMachine_id() {
@@ -76,12 +76,12 @@ public class Machine {
         this.breakdowns = breakdowns;
     }
 
-    public List<Treatment> getTreatments() {
-        return treatments;
+    public List<TreatmentSchedule> getTreatmentSchedules() {
+        return treatmentSchedules;
     }
 
-    public void setTreatments(List<Treatment> treatments) {
-        this.treatments = treatments;
+    public void setTreatmentSchedules(List<TreatmentSchedule> treatmentSchedules) {
+        this.treatmentSchedules = treatmentSchedules;
     }
 }
 

@@ -22,10 +22,13 @@ public class User{
     @ManyToOne(optional = false)
     @JoinColumn(name = "roleId")
     private Role role;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "locationId")
+    private Location location;
     @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL)
     private List<WorkerSchedule> schedules = new ArrayList<>();
     @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL)
-    private List<Treatment> treatments = new ArrayList<>();
+    private List<TreatmentSchedule> treatments = new ArrayList<>();
     @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL)
     private List<Permission> permissions = new ArrayList<>();
 
@@ -53,11 +56,11 @@ public class User{
         this.schedules = schedules;
     }
 
-    public List<Treatment> getTreatments() {
+    public List<TreatmentSchedule> getTreatments() {
         return treatments;
     }
 
-    public void setTreatments(List<Treatment> treatments) {
+    public void setTreatments(List<TreatmentSchedule> treatments) {
         this.treatments = treatments;
     }
 
@@ -72,7 +75,7 @@ public class User{
     public User() {
     }
 
-    public User(Long userId, String name, String phoneNumber, String email, String password, Boolean enabled, Role role, List<WorkerSchedule> schedules, List<Treatment> treatments, List<Permission> permissions) {
+    public User(Long userId, String name, String phoneNumber, String email, String password, Boolean enabled, Role role, Location location, List<WorkerSchedule> schedules, List<TreatmentSchedule> treatments, List<Permission> permissions) {
         this.userId = userId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -80,9 +83,18 @@ public class User{
         this.password = password;
         this.enabled = enabled;
         this.role = role;
+        this.location = location;
         this.schedules = schedules;
         this.treatments = treatments;
         this.permissions = permissions;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getName() {

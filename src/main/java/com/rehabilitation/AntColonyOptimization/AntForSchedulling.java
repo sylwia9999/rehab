@@ -1,13 +1,11 @@
 package com.rehabilitation.AntColonyOptimization;
 
 import isula.aco.Ant;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class AntForSchedulling extends Ant<Integer, SchedullingEnviroment> {
-
     private static final double VALUE_NOT_USED = 1.0;
 
     public AntForSchedulling() {
@@ -18,7 +16,7 @@ public class AntForSchedulling extends Ant<Integer, SchedullingEnviroment> {
 
     @Override
     public boolean isSolutionReady(SchedullingEnviroment environment) {
-        return getCurrentIndex() == environment.getNumberOfJobs();
+        return getCurrentIndex() == environment.getNumberOfTreatments();
     }
 
     @Override
@@ -35,7 +33,7 @@ public class AntForSchedulling extends Ant<Integer, SchedullingEnviroment> {
     @Override
     public List<Integer> getNeighbourhood(SchedullingEnviroment environment) {
         List<Integer> neighbours = new ArrayList<>();
-        for (int l = 0; l < environment.getNumberOfJobs(); l++) {
+        for (int l = 0; l < environment.getNumberOfTreatments(); l++) {
             neighbours.add(l);
         }
         return neighbours;

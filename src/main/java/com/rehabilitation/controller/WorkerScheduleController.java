@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -27,12 +29,8 @@ public class WorkerScheduleController {
     }
 
     @GetMapping("/rehab/workerSchedules/worker")
-    public ResponseEntity<List<WorkerScheduleResponse>> getWorker(@RequestParam Long workerId) {
-        return new ResponseEntity<>(workerScheduleService.getWorker(workerId), HttpStatus.OK);
+    public ResponseEntity<List<WorkerScheduleResponse>> getWorker(@RequestParam Long workerId, @RequestParam Date date) {
+        return new ResponseEntity<>(workerScheduleService.getWorker(workerId, date), HttpStatus.OK);
     }
 
-    @GetMapping("/rehab/workerSchedules/location")
-    public ResponseEntity<List<WorkerScheduleResponse>> getLocation(@RequestParam int locationId) {
-        return new ResponseEntity<>(workerScheduleService.getLocation(locationId), HttpStatus.OK);
-    }
 }

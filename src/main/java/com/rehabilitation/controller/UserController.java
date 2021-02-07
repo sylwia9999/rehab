@@ -14,12 +14,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
 public class UserController {
-
     @Autowired
     private AuthenticationManager manager;
     @Autowired
@@ -67,4 +67,8 @@ public class UserController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
+    @GetMapping(value = "/users/treatment")
+    public ResponseEntity<List<UserResponse>> getPermittedWorkers(@RequestParam int treatmentId, @RequestParam int locationId,@RequestParam Date date) {
+        return new ResponseEntity<>(userService.getPermittedWorkers(treatmentId, locationId, date), HttpStatus.OK);
+    }
 }

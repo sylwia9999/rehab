@@ -10,11 +10,12 @@ public class UserResponse {
     private String password;
     private Boolean enabled;
     private int role_id;
+    private int location_id;
 
     public UserResponse() {
     }
 
-    public UserResponse(@NotNull Long id, String name, String phoneNumber, String email, String password, Boolean enabled, int role_id) {
+    public UserResponse(@NotNull Long id, String name, String phoneNumber, String email, String password, Boolean enabled, int role_id, int location_id) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -22,6 +23,31 @@ public class UserResponse {
         this.password = password;
         this.enabled = enabled;
         this.role_id = role_id;
+        this.location_id = location_id;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+    public int getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(int location_id) {
+        this.location_id = location_id;
     }
 
     public Long getId() {

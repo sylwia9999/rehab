@@ -4,24 +4,20 @@ public class TreatmentRequest {
     private String name;
     private int duration;
     private int order;
-    private Long user;
-    private int location;
-    private int machine;
+    private int repeat_number;
     private int treatmentType;
-    private int rehabilitationPlanLine;
+    private int rehabilitationPlan;
 
     public TreatmentRequest() {
     }
 
-    public TreatmentRequest(String name, int duration, int order, Long user, int location, int machine, int treatmentType, int rehabilitationPlanLine) {
+    public TreatmentRequest(String name, int duration, int order, int repeat_number, int treatmentType, int rehabilitationPlan) {
         this.name = name;
         this.duration = duration;
         this.order = order;
-        this.user = user;
-        this.location = location;
-        this.machine = machine;
+        this.repeat_number = repeat_number;
         this.treatmentType = treatmentType;
-        this.rehabilitationPlanLine = rehabilitationPlanLine;
+        this.rehabilitationPlan = rehabilitationPlan;
     }
 
     public String getName() {
@@ -48,29 +44,6 @@ public class TreatmentRequest {
         this.order = order;
     }
 
-    public Long getUser() {
-        return user;
-    }
-
-    public void setUser(Long user) {
-        this.user = user;
-    }
-
-    public int getLocation() {
-        return location;
-    }
-
-    public void setLocation(int location) {
-        this.location = location;
-    }
-
-    public int getMachine() {
-        return machine;
-    }
-
-    public void setMachine(int machine) {
-        this.machine = machine;
-    }
 
     public int getTreatmentType() {
         return treatmentType;
@@ -80,11 +53,19 @@ public class TreatmentRequest {
         this.treatmentType = treatmentType;
     }
 
-    public int getRehabilitationPlanLine() {
-        return rehabilitationPlanLine;
+    public int getRehabilitationPlan() {
+        return rehabilitationPlan;
     }
 
-    public void setRehabilitationPlanLine(int rehabilitationPlanLine) {
-        this.rehabilitationPlanLine = rehabilitationPlanLine;
+    public void setRehabilitationPlan(int rehabilitationPlan) {
+        this.rehabilitationPlan = rehabilitationPlan;
+    }
+
+    public int getRepeat_number() {
+        return repeat_number;
+    }
+
+    public void setRepeat_number(int repeat_number) {
+        this.repeat_number = repeat_number;
     }
 }

@@ -5,6 +5,5 @@ import java.util.List;
 
 public interface TreatmentService {
     List<TreatmentResponse> getAll();
-    List<TreatmentResponse> getLine(int lineId);
-    void updateTreatment(int treatmentId, Long workerId, int machineId, int locationId);
+    List<TreatmentResponse> getPlan(int patientId, int whichDay);
 }

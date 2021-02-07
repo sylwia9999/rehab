@@ -21,14 +21,14 @@ public class RehabilitationPlanServiceImpl implements RehabilitationPlanService{
     @Override
     public List<RehabilitationPlanResponse> getAll() {
         return StreamSupport.stream(rehabilitationPlanRepository.findAll().spliterator(), false)
-                .map(rehabilitationPlan -> new RehabilitationPlanResponse(rehabilitationPlan.getPlan_id(), rehabilitationPlan.getCreation_date(), rehabilitationPlan.getPatient().getPatient_id()))
+                .map(rehabilitationPlan -> new RehabilitationPlanResponse(rehabilitationPlan.getPlan_id(), rehabilitationPlan.getCreation_date(), rehabilitationPlan.getPatient().getPatient_id(), rehabilitationPlan.getStartDate()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<RehabilitationPlanResponse> getPatient(int patientId) {
         return StreamSupport.stream(rehabilitationPlanRepository.findAll().spliterator(), false)
-                .map(rehabilitationPlan -> new RehabilitationPlanResponse(rehabilitationPlan.getPlan_id(), rehabilitationPlan.getCreation_date(), rehabilitationPlan.getPatient().getPatient_id()))
+                .map(rehabilitationPlan -> new RehabilitationPlanResponse(rehabilitationPlan.getPlan_id(), rehabilitationPlan.getCreation_date(), rehabilitationPlan.getPatient().getPatient_id(), rehabilitationPlan.getStartDate()))
                 .filter(rehabilitationPlanResponse -> rehabilitationPlanResponse.getPatient() == patientId)
                 .collect(Collectors.toList());
     }

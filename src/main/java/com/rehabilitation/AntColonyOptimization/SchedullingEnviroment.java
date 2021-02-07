@@ -1,66 +1,40 @@
 package com.rehabilitation.AntColonyOptimization;
-
 import isula.aco.Environment;
-import isula.aco.exception.InvalidInputException;
-import isula.aco.exception.MethodNotImplementedException;
 
 public class SchedullingEnviroment extends Environment {
-
-    /**
-     * In this matrix, jobs represent rows and columns are the time required per machine.
-     */
+     //In this matrix, jobs represent rows and columns are the time required per machine.
     private double[][] problemRepresentation;
+    private int numberOfTreatments;
 
-    private int numberOfJobs;
-
-    /**
-     * Environment for the Flow Shop Scheduling Problem.
-     *
-     * @param problemGraph Graph representation of the problem.
-     * @throws InvalidInputException When the graph is incorrectly formed.
-     */
-    public SchedullingEnviroment(double[][] problemGraph) throws InvalidInputException {
+    public SchedullingEnviroment(double[][] problemGraph) {
         super();
+        this.problemRepresentation = problemGraph;
+        this.setPheromoneMatrix(createPheromoneMatrix());
 
-        if (this.isProblemRepresentationValid(problemGraph)) {
-            this.problemRepresentation = problemGraph;
-            this.setPheromoneMatrix(createPheromoneMatrix());
-        } else {
-            throw new InvalidInputException();
-        }
-
-        this.numberOfJobs = problemGraph.length;
+        this.numberOfTreatments = problemGraph.length;
     }
 
-    public int getNumberOfJobs() {
+    public int getNumberOfTreatments() {
         return getProblemRepresentation().length;
-    }
-
-    protected boolean isProblemRepresentationValid(double[][] problemRepresentation) {
-        int numberOfMachines = problemRepresentation[0].length;
-        int jobs = problemRepresentation.length;
-
-        for (int i = 1; i < jobs; i++) {
-            if (problemRepresentation[i].length != numberOfMachines) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    protected double[][] createPheromoneMatrix()
-            throws MethodNotImplementedException {
-        if (this.getProblemRepresentation() != null) {
-            int jobs = getNumberOfJobs();
-            return new double[jobs][jobs];
-        }
-
-        return null;
-
     }
 
     public double[][] getProblemRepresentation() {
         return problemRepresentation;
     }
+
+    public int getNumberOfOptions(int treatmentNumber) {
+        double[][] graph = getProblemRepresentation();
+        return graph[treatmentNumber].length;
+    }
+
+    @Override
+    protected double[][] createPheromoneMatrix(){
+        if (this.getProblemRepresentation() != null) {
+            int treatments = getNumberOfTreatments();
+
+            return new double[treatments][treatments];
+        }
+        return null;
+    }
+
 }
